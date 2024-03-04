@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product';
 import { PageEvent } from '@angular/material/paginator';
@@ -17,17 +17,10 @@ export class ProductListComponent implements OnInit {
   currentPage: number = 1;
   pageSize: number = 8; 
   selectedSortOption: string = 'price';  
-  screenWidth: any;
+  screenWidth: number = 0;
 
   constructor(private productService: ProductService, @Inject(PLATFORM_ID) private platformId: object) { 
-  }
-
- /*  @HostListener('window:resize', ['$event'])
-  onResize() {
-    if (isPlatformBrowser(this.platformId)) {
-      this.screenWidth = window.innerWidth;
-    }
-  } */
+  } 
   
   ngOnInit(): void { 
     if (isPlatformBrowser(this.platformId)) {
@@ -36,11 +29,11 @@ export class ProductListComponent implements OnInit {
     this.loadProducts();
   } 
   loadProducts() {
-    this.productService.getProducts().subscribe((data: any) => {
+    this.productService.getProducts().subscribe((data) => {
       this.products = data;
       this.totalProducts = this.products.length;
       this.setPage(1);
-      this.sortProducts(); // Adiciona a chamada para classificar os produtos após o carregamento
+      this.sortProducts();
     });
   }
 
