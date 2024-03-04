@@ -1,5 +1,3 @@
-// currency-format.pipe.ts
-
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
@@ -10,8 +8,9 @@ export class CurrencyFormatPipe implements PipeTransform {
     if (isNaN(value)) {
       return '';
     }
-
-    // Formata o valor para moeda brasileira (BRL) e substitui o ponto por vírgula
-    return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }).replace('.', ',');
+    
+    const parts = value.toFixed(2).split('.');
+    const formattedValue = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.') + ',' + parts[1];
+    return 'R$ ' + formattedValue;
   }
 }

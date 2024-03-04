@@ -37,7 +37,8 @@ import { FormsModule } from '@angular/forms';
     MatGridListModule,
     MatToolbarModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MatToolbarModule
   ],
   providers: [
     provideClientHydration(),

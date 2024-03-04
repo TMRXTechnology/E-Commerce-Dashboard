@@ -24,11 +24,12 @@ export class ProductListComponent implements OnInit {
   }
 
   loadProducts() {
-      this.productService.getProducts().subscribe((data: any) => {
-          this.products = data;
-          this.totalProducts = this.products.length;
-          this.setPage(1);
-      });
+    this.productService.getProducts().subscribe((data: any) => {
+      this.products = data;
+      this.totalProducts = this.products.length;
+      this.setPage(1);
+      this.sortProducts(); // Adiciona a chamada para classificar os produtos após o carregamento
+    });
   }
 
   setPage(page: number) {
@@ -67,9 +68,8 @@ export class ProductListComponent implements OnInit {
         }
         return 0;
       });
-    }
+    } 
   }
-  
 
 }
 
