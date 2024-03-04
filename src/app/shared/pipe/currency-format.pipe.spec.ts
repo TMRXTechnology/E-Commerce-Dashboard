@@ -21,7 +21,5 @@ describe('CurrencyFormatPipe', () => {
     const value = NaN;
     const result = pipe.transform(value);
     expect(result).toEqual('');
-  });
-
-  // Adicione mais casos de teste conforme necessário
+  }); 
 });
