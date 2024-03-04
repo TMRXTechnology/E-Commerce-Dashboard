@@ -1,0 +1,26 @@
+<mat-grid-list cols="3">
+<div class="products-container" fxLayout.xs="column" fxLayout="row wrap" fxLayoutGap="16px">
+  <select (change)="sortProducts()">
+    <option value="price">Ordenar por Preço</option>
+    <option value="name">Ordenar por Nome</option>
+  </select>
+    <ng-container *ngFor="let product of pagedProducts">
+      <mat-card class="product" fxFlex.gt-xs="calc(25% - 16px)" fxFlex.xs="100%">
+        <img mat-card-image [src]="product.imageUrl" alt="{{ product.name }}">
+        <mat-card-content>
+          <h3>{{ product.name }}</h3>
+          <p>{{ product.price | currencyFormat }}</p>
+          <p *ngIf="product.promotion">Promoção!</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-raised-button color="{{ product.addedToCart ? 'danger' : 'primary' }}" (click)="addToCart(product)">
+            {{ product.addedToCart ? 'Remover do Carrinho' : 'Adicionar ao Carrinho' }}
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </ng-container>
+  </div>
+</mat-grid-list>
+  <mat-paginator [length]="totalProducts" [pageSize]="pageSize" (page)="pageChanged($event)">
+</mat-paginator>
+  
