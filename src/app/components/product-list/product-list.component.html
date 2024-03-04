@@ -1,26 +1,73 @@
-<mat-grid-list cols="3">
-<div class="products-container" fxLayout.xs="column" fxLayout="row wrap" fxLayoutGap="16px">
-  <select (change)="sortProducts()">
-    <option value="price">Ordenar por Preço</option>
-    <option value="name">Ordenar por Nome</option>
-  </select>
-    <ng-container *ngFor="let product of pagedProducts">
-      <mat-card class="product" fxFlex.gt-xs="calc(25% - 16px)" fxFlex.xs="100%">
-        <img mat-card-image [src]="product.imageUrl" alt="{{ product.name }}">
-        <mat-card-content>
-          <h3>{{ product.name }}</h3>
-          <p>{{ product.price | currencyFormat }}</p>
-          <p *ngIf="product.promotion">Promoção!</p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button mat-raised-button color="{{ product.addedToCart ? 'danger' : 'primary' }}" (click)="addToCart(product)">
-            {{ product.addedToCart ? 'Remover do Carrinho' : 'Adicionar ao Carrinho' }}
-          </button>
-        </mat-card-actions>
-      </mat-card>
-    </ng-container>
+<div class="container">
+  <mat-form-field>
+    <mat-label>Order by</mat-label>
+    <mat-select [(ngModel)]="selectedSortOption" (selectionChange)="sortProducts()">
+      <mat-option value="name">Name</mat-option>
+      <mat-option value="price">Price</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div *ngIf="screenWidth >= 768; else mobileView">
+    <mat-grid-list cols="4" rowHeight="4:5">
+      <mat-grid-tile *ngFor="let product of pagedProducts">
+        <mat-card class="product card">
+          <div class="product-image" [style.background-image]="'url(' + product.imageUrl + ')'"></div>
+          <mat-card-content class="content-card">
+            <h3>{{ product.name }} <p *ngIf="product.promotion" class="label-promotion" style="color: red">
+                <b>{{product.discount}}% OFF</b></p>
+            </h3>
+            <p *ngIf="!product.promotion">{{ product.price | currencyFormat }}</p>
+            <div *ngIf="product.promotion">
+              <p class="price">{{ product.price | currencyFormat }}</p>
+              <p><b>{{ ((product.price*(100-product.discount)/100)) | currencyFormat }}</b></p>
+            </div>
+          </mat-card-content>
+
+          <mat-card-actions class="action-button">
+            <button mat-raised-button matTooltip="{{product.description}}" aria-label="">
+              Ver detalhes
+            </button>
+            <button mat-raised-button extended color="{{ product.addedToCart ? 'warn' : 'primary' }}"
+              (click)="addToCart(product)" style="width: 100%;">
+              {{ product.addedToCart ? 'Remover do Carrinho' : 'Adicionar ao Carrinho' }}
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
   </div>
-</mat-grid-list>
-  <mat-paginator [length]="totalProducts" [pageSize]="pageSize" (page)="pageChanged($event)">
+
+  <ng-template #mobileView>
+    <mat-grid-list cols="1" rowHeight="2:2">
+      <mat-grid-tile *ngFor="let product of pagedProducts">
+        <mat-card class="product">
+          <div style="text-align: center">
+            <img mat-card-image style="width: 35%;" [src]="product.imageUrl" alt="{{ product.name }}">
+          </div>
+          <mat-card-content>
+            <h3>{{ product.name }} <p *ngIf="product.promotion" class="label-promotion" style="color: red">
+                <b>{{product.discount}}% OFF</b></p>
+            </h3>
+            <p *ngIf="!product.promotion">{{ product.price | currencyFormat }}</p>
+            <div *ngIf="product.promotion">
+              <p style="text-decoration: line-through;text-decoration-color: red;">{{ product.price | currencyFormat }}
+              </p>
+              <p><b>{{ ((product.price*(100-product.discount)/100)) | currencyFormat }}</b></p>
+            </div>
+            <button mat-raised-button matTooltip="{{product.description}}" aria-label="">
+              Ver detalhes
+            </button>
+          </mat-card-content>
+          <mat-card-actions style="text-align: center;">
+            <button mat-raised-button extended color="{{ product.addedToCart ? 'warn' : 'primary' }}"
+              (click)="addToCart(product)" style="width: 100%;">
+              {{ product.addedToCart ? 'Remover do Carrinho' : 'Adicionar ao Carrinho' }}
+            </button>
+          </mat-card-actions>
+        </mat-card>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </ng-template>
+</div>
+
+<mat-paginator [length]="totalProducts" [pageSize]="pageSize" (page)="pageChanged($event)">
 </mat-paginator>
-  

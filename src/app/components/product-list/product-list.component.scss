@@ -1,0 +1,35 @@
+.product-image {
+    width: 100%;
+    height: 100px;
+    padding-bottom: 35%; 
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+
+
+  .container {
+    width: 98%; 
+    padding: 10px !important; 
+  }
+
+  .card {
+    height: 400px;
+    width: 80%;
+  }
+
+  .action-button {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .content-card {
+    height: 120px
+  }
+
+  .price {
+    text-decoration: line-through;
+    text-decoration-color: red;
+  }

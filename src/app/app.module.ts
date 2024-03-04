@@ -18,6 +18,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FormsModule } from '@angular/forms';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule}  from '@angular/material/select';
+import { MatFormFieldControl } from '@angular/material/form-field';
 
 
 @NgModule({
@@ -38,7 +41,9 @@ import { FormsModule } from '@angular/forms';
     MatToolbarModule,
     HttpClientModule,
     FormsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTooltipModule,
+    MatSelectModule
   ],
   providers: [
     provideClientHydration(),

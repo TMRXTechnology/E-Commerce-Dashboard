@@ -43,7 +43,8 @@ describe('ProductListComponent', () => {
       description: '',
       addedToCart: false, // tornando adicionado ao carrinho opcional
       description_full: '',
-      favorite: false
+      favorite: false,
+      discount: 0
     },
     {
       id: 2,
@@ -56,7 +57,8 @@ describe('ProductListComponent', () => {
       description: '',
       addedToCart: false, // tornando adicionado ao carrinho opcional
       description_full: '',
-      favorite: false
+      favorite: false,
+      discount: 0
     }];
 
     jest.spyOn(productService, 'getProducts').mockReturnValue(of(products));
@@ -81,7 +83,8 @@ describe('ProductListComponent', () => {
       description: '',
       addedToCart: false, // tornando adicionado ao carrinho opcional
       description_full: '',
-      favorite: false
+      favorite: false,
+      discount: 0
     };
 
     component.addToCart(product);
@@ -105,7 +108,8 @@ describe('ProductListComponent', () => {
         description: '',
         addedToCart: false,  
         description_full: '',
-        favorite: false
+        favorite: false,
+        discount: 0,
       });
     }
     component.products = products;
@@ -120,9 +124,9 @@ describe('ProductListComponent', () => {
 
   it('should sort products by price', () => {
     const products: Product[] = [
-      { id: 1, name: 'Product 1', slug_url: 'product-1', price: 20, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false },
-      { id: 2, name: 'Product 2', slug_url: 'product-2', price: 10, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false },
-      { id: 3, name: 'Product 3', slug_url: 'product-3', price: 30, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false }
+      { id: 1, name: 'Product 1', slug_url: 'product-1', price: 20, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 },
+      { id: 2, name: 'Product 2', slug_url: 'product-2', price: 10, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 },
+      { id: 3, name: 'Product 3', slug_url: 'product-3', price: 30, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 }
     ];
     
     component.products = products;
@@ -134,9 +138,9 @@ describe('ProductListComponent', () => {
     component.sortProducts(); // Sort the products
   
     const sortedProducts = [
-      { id: 2, name: 'Product 2', slug_url: 'product-2',  price: 10, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false },
-      { id: 1, name: 'Product 1', slug_url: 'product-1',  price: 20, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false },
-      { id: 3, name: 'Product 3', slug_url: 'product-3',  price: 30, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false }
+      { id: 2, name: 'Product 2', slug_url: 'product-2',  price: 10, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 },
+      { id: 1, name: 'Product 1', slug_url: 'product-1',  price: 20, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 },
+      { id: 3, name: 'Product 3', slug_url: 'product-3',  price: 30, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 }
     ]; 
   
     expect(component.pagedProducts).toEqual(sortedProducts);   
@@ -144,9 +148,9 @@ describe('ProductListComponent', () => {
 
   it('should sort products by name', () => {
     const products: Product[] = [
-      { id: 1, name: 'Product B', slug_url: 'product-B', price: 20, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false },
-      { id: 2, name: 'Product A', slug_url: 'product-A', price: 10, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false },
-      { id: 3, name: 'Product C', slug_url: 'product-C', price: 30, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false }
+      { id: 1, name: 'Product B', slug_url: 'product-B', price: 20, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 },
+      { id: 2, name: 'Product A', slug_url: 'product-A', price: 10, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 },
+      { id: 3, name: 'Product C', slug_url: 'product-C', price: 30, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 }
     ];
     
     component.products = products;
@@ -158,9 +162,9 @@ describe('ProductListComponent', () => {
     component.sortProducts(); // Sort the products
   
     const sortedProducts = [
-      { id: 2, name: 'Product A', slug_url: 'product-A', price: 10, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false },
-      { id: 1, name: 'Product B', slug_url: 'product-B', price: 20, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false },
-      { id: 3, name: 'Product C', slug_url: 'product-C', price: 30, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false }
+      { id: 2, name: 'Product A', slug_url: 'product-A', price: 10, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 },
+      { id: 1, name: 'Product B', slug_url: 'product-B', price: 20, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 },
+      { id: 3, name: 'Product C', slug_url: 'product-C', price: 30, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 }
     ]; 
   
     expect(component.pagedProducts).toEqual(sortedProducts);   
@@ -168,9 +172,9 @@ describe('ProductListComponent', () => {
 
   it('should sort products when names are equal', () => {
   const products: Product[] = [
-    { id: 1, name: 'Product A', slug_url: 'product-A', price: 20, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false },
-    { id: 2, name: 'Product B', slug_url: 'product-B', price: 10, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false },
-    { id: 3, name: 'Product A', slug_url: 'product-A', price: 30, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false }
+    { id: 1, name: 'Product A', slug_url: 'product-A', price: 20, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 },
+    { id: 2, name: 'Product B', slug_url: 'product-B', price: 10, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 },
+    { id: 3, name: 'Product A', slug_url: 'product-A', price: 30, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 }
   ];
 
   component.products = products;
@@ -182,9 +186,9 @@ describe('ProductListComponent', () => {
   component.sortProducts();
 
   const sortedProducts = [
-    { id: 1, name: 'Product A', slug_url: 'product-A', price: 20, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false },
-    { id: 3, name: 'Product A', slug_url: 'product-A', price: 30, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false },
-    { id: 2, name: 'Product B', slug_url: 'product-B', price: 10, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false }
+    { id: 1, name: 'Product A', slug_url: 'product-A', price: 20, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 },
+    { id: 3, name: 'Product A', slug_url: 'product-A', price: 30, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 },
+    { id: 2, name: 'Product B', slug_url: 'product-B', price: 10, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 }
   ]; 
 
   expect(component.pagedProducts).toEqual(sortedProducts);

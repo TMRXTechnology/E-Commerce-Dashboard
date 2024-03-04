@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { ProductService } from '../../services/product.service';
 import { Product } from '../../models/product';
 import { PageEvent } from '@angular/material/paginator';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-product-list',
@@ -14,15 +15,26 @@ export class ProductListComponent implements OnInit {
   pagedProducts: Product[] = [];
   totalProducts: number = 0;
   currentPage: number = 1;
-  pageSize: number = 4; 
+  pageSize: number = 8; 
   selectedSortOption: string = 'price';  
+  screenWidth: any;
 
-  constructor(private productService: ProductService) {}
-
-  ngOnInit(): void {
-      this.loadProducts();
+  constructor(private productService: ProductService, @Inject(PLATFORM_ID) private platformId: object) { 
   }
 
+ /*  @HostListener('window:resize', ['$event'])
+  onResize() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.screenWidth = window.innerWidth;
+    }
+  } */
+  
+  ngOnInit(): void { 
+    if (isPlatformBrowser(this.platformId)) {
+      this.screenWidth = window.innerWidth;
+    }
+    this.loadProducts();
+  } 
   loadProducts() {
     this.productService.getProducts().subscribe((data: any) => {
       this.products = data;

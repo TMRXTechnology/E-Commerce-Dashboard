@@ -10,5 +10,6 @@ export interface Product {
     addedToCart?: boolean;
     description_full: string;
     favorite: boolean;
+    discount: number;
   }
   

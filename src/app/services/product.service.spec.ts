@@ -36,7 +36,8 @@ describe('ProductService', () => {
         imageUrl: 'https://example.com/product1.jpg',
         description: 'Descrição do Produto 1',
         description_full: 'Descrição completa do Produto 1',
-        favorite: false
+        favorite: false,
+        discount: 0
       },
       { 
         id: 2, 
@@ -48,7 +49,8 @@ describe('ProductService', () => {
         imageUrl: 'https://example.com/product2.jpg',
         description: 'Descrição do Produto 2',
         description_full: 'Descrição completa do Produto 2',
-        favorite: true
+        favorite: true, 
+        discount: 0
       }
     ];    
 

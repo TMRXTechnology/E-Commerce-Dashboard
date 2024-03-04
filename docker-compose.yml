@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:  
+  angular-ecommerce-environment-docker:
+    container_name: angular-ecommerce
+    build: 
+      context: . 
+    networks:
+      - local-network
+    ports:
+       - 4200:4200
+ 
+networks:
+  local-network:
+
+  

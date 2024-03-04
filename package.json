@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development", 
+    "watch": "ng build --watch --configuration development",
     "serve:ssr:angular-ecommerce": "node dist/angular-ecommerce/server/server.mjs",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -47,6 +47,7 @@
     "zone.js": "~0.14.3"
   },
   "devDependencies": {
+    "@angular-builders/custom-webpack": "^17.0.1",
     "@angular-devkit/build-angular": "^17.2.2",
     "@angular/cli": "^17.2.2",
     "@angular/compiler-cli": "^17.2.0",
