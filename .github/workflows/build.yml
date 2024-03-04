@@ -28,7 +28,7 @@ jobs:
       run: npm install
       
     - name: Run Tests and Capture Coverage
-      run: npm test:coverage
+      run: npm run test:coverage
 
     - name: Linting with ESLint
       run: npm run lint
