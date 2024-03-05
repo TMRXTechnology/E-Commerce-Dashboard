@@ -11,23 +11,7 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
     "lint": "ng lint"
-  },
-  "jest": {
-    "preset": "jest-preset-angular",
-    "setupFilesAfterEnv": [
-      "<rootDir>/src/setup.jest.ts"
-    ],
-    "testPathIgnorePatterns": [
-      "<rootDir>/node_modules/",
-      "<rootDir>/dist/"
-    ],
-    "globals": {
-      "ts-jest": {
-        "tsConfig": "<rootDir>/tsconfig.spec.json",
-        "stringifyContentPathRegex": "\\.html$"
-      }
-    }
-  },
+  }, 
   "private": true,
   "dependencies": {
     "@angular/animations": "^17.2.0",
