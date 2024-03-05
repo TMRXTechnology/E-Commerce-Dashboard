@@ -84,7 +84,7 @@ All files                     |     100 |      100 |     100 |     100 |
   shared.module.ts            |     100 |      100 |     100 |     100 |                   
  app/shared/pipe              |     100 |      100 |     100 |     100 |                   
   currency-format.pipe.ts     |     100 |      100 |     100 |     100 |                   
-------------------------------|---------|----------|---------|---------|-------------------
+
 
 Test Suites: 3 passed, 3 total
 Tests:       14 passed, 14 total
