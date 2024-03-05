@@ -13,68 +13,74 @@
     <mat-label>Search</mat-label>
     <input matInput placeholder="Product name" [(ngModel)]="filterByNameValue" (input)="filterByName()">
   </mat-form-field>
-  
-
-  <div *ngIf="screenWidth >= 768; else mobileView">
-    <mat-grid-list cols="4" rowHeight="4:5">
-      <mat-grid-tile *ngFor="let product of pagedProducts">
-        <mat-card class="product card">
-          <div class="product-image" [style.background-image]="'url(' + product.imageUrl + ')'"></div>
-          <mat-card-content class="content-card">
-            <h3>{{ product.name }} <p *ngIf="product.promotion" class="label-promotion" style="color: red">
-                <b>{{product.discount}}% OFF</b></p>
-            </h3>
-            <p *ngIf="!product.promotion">{{ product.price | currencyFormat }}</p>
-            <div *ngIf="product.promotion">
-              <p class="price">{{ product.price | currencyFormat }}</p>
-              <p><b>{{ ((product.price*(100-product.discount)/100)) | currencyFormat }}</b></p>
-            </div>
-          </mat-card-content>
-
-          <mat-card-actions class="action-button">
-            <button mat-raised-button matTooltip="{{product.description}}" aria-label="">
-              Ver detalhes
-            </button>
-            <button mat-raised-button extended color="{{ product.addedToCart ? 'warn' : 'primary' }}"
-              (click)="addToCart(product)" style="width: 100%;">
-              {{ product.addedToCart ? 'Remover do Carrinho' : 'Adicionar ao Carrinho' }}
-            </button>
-          </mat-card-actions>
-        </mat-card>
-      </mat-grid-tile>
-    </mat-grid-list>
+   
+  <div *ngIf="!pagedProducts?.length; else loadedContent">
+    <mat-spinner></mat-spinner>
   </div>
+ 
+  <ng-template #loadedContent>
+    <div *ngIf="screenWidth >= 768; else mobileView">
+      <mat-grid-list cols="4" rowHeight="4:5">
+        <mat-grid-tile *ngFor="let product of pagedProducts">
+          <mat-card class="product card">
+            <div class="product-image"  [style.background-image]="'url(' + product.imageUrl + ')'"></div>
+            
+            <mat-card-content class="content-card">
+              <h3>{{ product.name }} <p *ngIf="product.promotion" class="label-promotion" style="color: red">
+                  <b>{{product.discount}}% OFF</b></p>
+              </h3>
+              <p *ngIf="!product.promotion">{{ product.price | currencyFormat }}</p>
+              <div *ngIf="product.promotion">
+                <p class="price">{{ product.price | currencyFormat }}</p>
+                <p><b>{{ ((product.price*(100-product.discount)/100)) | currencyFormat }}</b></p>
+              </div>
+            </mat-card-content>
 
-  <ng-template #mobileView>
-    <mat-grid-list cols="2" rowHeight="1:2">
-      <mat-grid-tile *ngFor="let product of pagedProducts">
-        <mat-card class="product">
-          <div style="text-align: center">
-            <img mat-card-image style="width: 35%;" [src]="product.imageUrl" alt="{{ product.name }}">
-          </div>
-          <mat-card-content>
-            <h3>{{ product.name }} <p *ngIf="product.promotion" class="label-promotion" style="color: red">
-                <b>{{product.discount}}% OFF</b></p>
-            </h3>
-            <p *ngIf="!product.promotion">{{ product.price | currencyFormat }}</p>
-            <div *ngIf="product.promotion">
-              <p style="text-decoration: line-through;text-decoration-color: red;">{{ product.price | currencyFormat }}
-              </p>
-              <p><b>{{ ((product.price*(100-product.discount)/100)) | currencyFormat }}</b></p>
+            <mat-card-actions class="action-button">
+              <button mat-raised-button matTooltip="{{product.description}}" aria-label="">
+                Ver detalhes
+              </button>
+              <button mat-raised-button extended color="{{ product.addedToCart ? 'warn' : 'primary' }}"
+                (click)="addToCart(product)" style="width: 100%;">
+                {{ product.addedToCart ? 'Remover do Carrinho' : 'Adicionar ao Carrinho' }}
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+
+    <ng-template #mobileView>
+      <mat-grid-list cols="2" rowHeight="1:2">
+        <mat-grid-tile *ngFor="let product of pagedProducts">
+          <mat-card class="product">
+            <div style="text-align: center">
+              <img mat-card-image style="width: 35%;" [src]="product.imageUrl" alt="{{ product.name }}">
             </div>
-            <button mat-raised-button matTooltip="{{product.description}}" aria-label="">
-              Ver detalhes
-            </button>
-          </mat-card-content>
-          <mat-card-actions style="text-align: center;">
-            <button mat-raised-button extended color="{{ product.addedToCart ? 'warn' : 'primary' }}"
-              (click)="addToCart(product)" style="width: 100%;">
-              {{ product.addedToCart ? 'Remover do Carrinho' : 'Adicionar ao Carrinho' }}
-            </button>
-          </mat-card-actions>
-        </mat-card>
-      </mat-grid-tile>
-    </mat-grid-list>
+            <mat-card-content>
+              <h3>{{ product.name }} <p *ngIf="product.promotion" class="label-promotion" style="color: red">
+                  <b>{{product.discount}}% OFF</b></p>
+              </h3>
+              <p *ngIf="!product.promotion">{{ product.price | currencyFormat }}</p>
+              <div *ngIf="product.promotion">
+                <p style="text-decoration: line-through;text-decoration-color: red;">{{ product.price | currencyFormat }}
+                </p>
+                <p><b>{{ ((product.price*(100-product.discount)/100)) | currencyFormat }}</b></p>
+              </div>
+              <button mat-raised-button matTooltip="{{product.description}}" aria-label="">
+                Ver detalhes
+              </button>
+            </mat-card-content>
+            <mat-card-actions style="text-align: center;">
+              <button mat-raised-button extended color="{{ product.addedToCart ? 'warn' : 'primary' }}"
+                (click)="addToCart(product)" style="width: 100%;">
+                {{ product.addedToCart ? 'Remover do Carrinho' : 'Adicionar ao Carrinho' }}
+              </button>
+            </mat-card-actions>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </ng-template>
   </ng-template>
 </div>
 

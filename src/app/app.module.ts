@@ -21,8 +21,8 @@ import { FormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule}  from '@angular/material/select'; 
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-
+import { MatInputModule } from '@angular/material/input';  
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
@@ -46,8 +46,8 @@ import { MatInputModule } from '@angular/material/input';
     MatTooltipModule,
     MatSelectModule,
     MatFormFieldModule,
-    MatInputModule,
-    MatInputModule
+    MatInputModule, 
+    MatProgressSpinnerModule
   ],
   providers: [
     provideClientHydration(),
