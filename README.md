@@ -65,7 +65,21 @@ Run `npm run lint` to execute the lint.
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
-## Considerations
+## Coverage 100%
+------------------------------|---------|----------|---------|---------|-------------------
+File                          | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+------------------------------|---------|----------|---------|---------|-------------------
+All files                     |     100 |      100 |     100 |     100 |                   
+ app                          |     100 |      100 |     100 |     100 |                   
+  app-routing.module.ts       |     100 |      100 |     100 |     100 |                   
+ app/components/product-list  |     100 |      100 |     100 |     100 |                   
+  product-list.component.html |     100 |      100 |     100 |     100 |                   
+  product-list.component.ts   |     100 |      100 |     100 |     100 |                   
+ app/services                 |     100 |      100 |     100 |     100 |                   
+  product.service.ts          |     100 |      100 |     100 |     100 |                   
+ app/shared                   |     100 |      100 |     100 |     100 |                   
+  shared.module.ts            |     100 |      100 |     100 |     100 |                   
+ app/shared/pipe              |     100 |      100 |     100 |     100 |                   
+  currency-format.pipe.ts     |     100 |      100 |     100 |     100 |                   
+------------------------------|---------|----------|---------|---------|-------------------
 
-Implementation of unit tests to ensure code quality.
-Principles of Clean Architecture and Clean Code to keep the code organized and readable. 
