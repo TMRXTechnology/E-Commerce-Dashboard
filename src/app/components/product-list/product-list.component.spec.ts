@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { ProductListComponent } from './product-list.component';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { of } from 'rxjs';
@@ -16,6 +16,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from '../../app-routing.module';
 import { SharedModule } from '../../shared/shared.module';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 describe('ProductListComponent', () => {
   let component: ProductListComponent;
@@ -38,7 +40,10 @@ describe('ProductListComponent', () => {
         FormsModule,
         MatToolbarModule,
         MatTooltipModule,
-        MatSelectModule], 
+        MatSelectModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatInputModule], 
       providers: [ProductService]
     }).compileComponents();
   });
@@ -49,7 +54,6 @@ describe('ProductListComponent', () => {
     productService = TestBed.inject(ProductService);
     fixture.detectChanges();
   });
-
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -195,29 +199,90 @@ describe('ProductListComponent', () => {
   });
 
   it('should sort products when names are equal', () => {
-  const products: Product[] = [
-    { id: 1, name: 'Product A', slug_url: 'product-A', price: 20, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 },
-    { id: 2, name: 'Product B', slug_url: 'product-B', price: 10, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 },
-    { id: 3, name: 'Product A', slug_url: 'product-A', price: 30, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 }
-  ];
+    const products: Product[] = [
+      { id: 1, name: 'Product A', slug_url: 'product-A', price: 20, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 },
+      { id: 2, name: 'Product B', slug_url: 'product-B', price: 10, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 },
+      { id: 3, name: 'Product A', slug_url: 'product-A', price: 30, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 }
+    ];
 
-  component.products = products;
-  component.totalProducts = products.length;
-  component.currentPage = 1;
-  component.pageSize = 4;
-  component.setPage(component.currentPage);
-  component.selectedSortOption = 'name';
-  component.sortProducts();
+    component.products = products;
+    component.totalProducts = products.length;
+    component.currentPage = 1;
+    component.pageSize = 4;
+    component.setPage(component.currentPage);
+    component.selectedSortOption = 'name';
+    component.sortProducts();
 
-  const sortedProducts = [
-    { id: 1, name: 'Product A', slug_url: 'product-A', price: 20, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 },
-    { id: 3, name: 'Product A', slug_url: 'product-A', price: 30, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 },
-    { id: 2, name: 'Product B', slug_url: 'product-B', price: 10, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 }
-  ]; 
+    const sortedProducts = [
+      { id: 1, name: 'Product A', slug_url: 'product-A', price: 20, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 },
+      { id: 3, name: 'Product A', slug_url: 'product-A', price: 30, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 },
+      { id: 2, name: 'Product B', slug_url: 'product-B', price: 10, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 }
+    ]; 
 
-  expect(component.pagedProducts).toEqual(sortedProducts);
-});
+    expect(component.pagedProducts).toEqual(sortedProducts);
+  });
 
-  
+  it('should filter products by name', fakeAsync(() => {
+    const products: Product[] = [
+      { id: 1, name: 'Product 1', slug_url: 'product-1', price: 20, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 },
+      { id: 2, name: 'Product 2', slug_url: 'product-2', price: 10, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 },
+      { id: 3, name: 'Product 3', slug_url: 'product-3', price: 30, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 }
+    ];
+    const filteredProducts = [
+      { id: 2, name: 'Product 2', slug_url: 'product-2', price: 10, quantity: 1, promotion: false, addedToCart: false, imageUrl: '', description: '', description_full: '', favorite: false, discount: 0 }
+    ];
+
+    jest.spyOn(productService, 'getProducts').mockReturnValue(of(products));
+
+    component.filterByNameValue = 'Product 2';
+    component.filterByName();
+    tick();  
+
+    expect(component.pagedProducts).toEqual(filteredProducts);
+  }));
+
+  it('should load all products if filter is empty', () => {
+    const products: Product[] = [
+      {
+        id: 1,
+        name: 'Product 1',
+        slug_url: 'product-1',
+        price: 10,
+        quantity: 1,
+        promotion: false,
+        addedToCart: false,
+        imageUrl: '',
+        description: '',
+        description_full: '',
+        favorite: false,
+        discount: 0
+      },
+      {
+        id: 2,
+        name: 'Product 2',
+        slug_url: 'product-2',
+        price: 10,
+        quantity: 1,
+        promotion: false,
+        addedToCart: false,
+        imageUrl: '',
+        description: '',
+        description_full: '',
+        favorite: false,
+        discount: 0
+      }
+    ];
+
+    jest.spyOn(productService, 'getProducts').mockReturnValue(of(products));
+
+    component.filterByNameValue = '';
+    component.filterByName();
+
+    expect(productService.getProducts).toHaveBeenCalled();
+    expect(component.products).toEqual(products);
+    expect(component.totalProducts).toBe(2);
+    expect(component.currentPage).toBe(1);
+    expect(component.pagedProducts).toEqual(products.slice(0, component.pageSize));
+  });
   
 });

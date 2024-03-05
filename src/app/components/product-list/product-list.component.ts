@@ -18,6 +18,7 @@ export class ProductListComponent implements OnInit {
   pageSize: number = 8; 
   selectedSortOption: string = 'price';  
   screenWidth: number = 0;
+  filterByNameValue: string = ''; 
 
   constructor(private productService: ProductService, @Inject(PLATFORM_ID) private platformId: object) { 
   } 
@@ -28,6 +29,7 @@ export class ProductListComponent implements OnInit {
     }
     this.loadProducts();
   } 
+
   loadProducts() {
     this.productService.getProducts().subscribe((data) => {
       this.products = data;
@@ -75,6 +77,21 @@ export class ProductListComponent implements OnInit {
       });
     } 
   }
+  
+  filterByName() {
+  const filterValue = this.filterByNameValue.toUpperCase();
+  if (!filterValue) {
+    this.loadProducts();
+    return;
+  }
+
+  this.productService.getProducts().subscribe((data) => {
+    this.products = data;
+    this.pagedProducts = this.products.filter(product => product.name.toUpperCase().includes(filterValue));
+    this.totalProducts = this.pagedProducts.length;
+  });
+ 
+}
 
 }
 

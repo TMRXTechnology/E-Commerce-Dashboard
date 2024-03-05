@@ -1,4 +1,5 @@
 <div class="container">
+  
   <mat-form-field>
     <mat-label>Order by</mat-label>
     <mat-select [(ngModel)]="selectedSortOption" (selectionChange)="sortProducts()">
@@ -6,6 +7,14 @@
       <mat-option value="price">Price</mat-option>
     </mat-select>
   </mat-form-field>
+
+
+  <mat-form-field class="example-full-width">
+    <mat-label>Search</mat-label>
+    <input matInput placeholder="Product name" [(ngModel)]="filterByNameValue" (input)="filterByName()">
+  </mat-form-field>
+  
+
   <div *ngIf="screenWidth >= 768; else mobileView">
     <mat-grid-list cols="4" rowHeight="4:5">
       <mat-grid-tile *ngFor="let product of pagedProducts">
@@ -37,7 +46,7 @@
   </div>
 
   <ng-template #mobileView>
-    <mat-grid-list cols="1" rowHeight="2:2">
+    <mat-grid-list cols="2" rowHeight="1:2">
       <mat-grid-tile *ngFor="let product of pagedProducts">
         <mat-card class="product">
           <div style="text-align: center">
