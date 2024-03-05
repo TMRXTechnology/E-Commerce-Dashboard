@@ -66,9 +66,9 @@ Run `npm run lint` to execute the lint.
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 ## Coverage 100%
-PASS src/app/shared/pipe/currency-format.pipe.spec.ts (6.091 s)
-PASS src/app/services/product.service.spec.ts (6.59 s)
-PASS src/app/components/product-list/product-list.component.spec.ts (9.242 s)
+- PASS src/app/shared/pipe/currency-format.pipe.spec.ts (6.091 s)
+- PASS src/app/services/product.service.spec.ts (6.59 s)
+- PASS src/app/components/product-list/product-list.component.spec.ts (9.242 s)
 
 ------------------------------|---------|----------|---------|---------|-------------------
 File                          | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
