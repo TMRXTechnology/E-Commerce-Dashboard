@@ -68,5 +68,4 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## Considerations
 
 Implementation of unit tests to ensure code quality.
-Principles of Clean Architecture and Clean Code to keep the code organized and readable.
-Availability of documentation and API endpoint modeling via Swagger endpoint /api-docs/.
+Principles of Clean Architecture and Clean Code to keep the code organized and readable. 
